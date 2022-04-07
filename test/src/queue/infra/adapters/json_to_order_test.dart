@@ -14,4 +14,19 @@ void main() {
     expect(order, isA<Order>());
     expect(order.status, OrderStatus.attending);
   });
+
+  test('deve converter um Order em Map', () {
+    final order = Order(
+      position: 1,
+      id: 'fdsfsdfsdf',
+      timestamp: DateTime.now(),
+      status: OrderStatus.wainting,
+    );
+
+    final map = JsonToOrder.toMap(order);
+
+    expect(map['id'], 'fdsfsdfsdf');
+    expect(map['status'], 'wainting');
+    expect(map['position'], 1);
+  });
 }

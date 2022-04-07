@@ -1,19 +1,19 @@
 import 'package:flutter_queue/src/queue/domain/entities/queue_entity.dart';
 
-abstract class ConfState {}
+abstract class ConfigurationState {}
 
-class EmptyConfState implements ConfState {}
+class EmptyConfigurationState implements ConfigurationState {}
 
-class LoadingConfState implements ConfState {}
+class LoadingConfigurationState implements ConfigurationState {}
 
-class LoadedConfState implements ConfState {
+class LoadedConfigurationState implements ConfigurationState {
   final List<QueueEntity> queues;
 
-  LoadedConfState(this.queues);
+  LoadedConfigurationState(this.queues);
 }
 
-class ExceptionConfState implements ConfState {
+class ExceptionConfigurationState implements ConfigurationState {
   final String message;
 
-  ExceptionConfState(this.message);
+  ExceptionConfigurationState(this.message);
 }

@@ -34,4 +34,19 @@ void main() {
     final result = repository.getAllQueues();
     expect(result, emits(isA<List<QueueEntity>>()));
   });
+
+  test('deve adicionar uma nova queue', () {
+    final datasource = IQueueDatasourceMock();
+    const queue = QueueEntity(
+      id: 'fdfs',
+      abbr: 'nbg',
+      orders: [],
+      priority: 1,
+      title: 'dsd',
+    );
+    when(() => datasource.addQueue(any())).thenAnswer((_) => Future.value());
+    final repository = QueueRepository(datasource);
+
+    expect(repository.addQueue(queue), completes);
+  });
 }

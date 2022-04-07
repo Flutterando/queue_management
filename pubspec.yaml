@@ -39,6 +39,7 @@ dependencies:
   provider: ^6.0.2
   flutter_bloc: ^8.0.1
   flutter_triple: ^1.2.7+2
+  bloc_concurrency: ^0.2.0
 
 dev_dependencies:
   fake_cloud_firestore: ^1.2.2
