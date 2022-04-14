@@ -7,6 +7,7 @@ final configurationModule = [
       context.read(),
       context.read(),
       context.read(),
+      context.read(),
     ),
   ),
 ];

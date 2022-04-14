@@ -46,4 +46,63 @@ void main() {
     expect(queries.docs.first['title'], 'novo titulo');
     expect(queries.docs.first.data().containsKey('id'), false);
   });
+
+  test('deve remover a proprieada orders de todos os documentos', () async {
+    final firestore = FakeFirebaseFirestore();
+    final datasource = QueueFirestoreDatasource(firestore);
+
+    await datasource.addQueue({
+      'id': 'fdfsfs',
+      'title': 'novo titulo',
+      'abbr': 'nt',
+      'priority': 2,
+      'orders': [],
+    });
+    await datasource.addQueue({
+      'id': 'fdfsfs22',
+      'title': 'novo titulo 2',
+      'abbr': 'nt2',
+      'priority': 3,
+      'orders': [],
+    });
+
+    await datasource.removeAllOrders();
+
+    final ref = firestore.collection('queue');
+    final queries = await ref.get();
+    expect(queries.docs.first.data().containsKey('orders'), false);
+    expect(queries.docs.last.data().containsKey('orders'), false);
+  });
+
+  test('deve atualizar a queue', () async {
+    final firestore = FakeFirebaseFirestore();
+    final datasource = QueueFirestoreDatasource(firestore);
+
+    await datasource.addQueue({
+      'id': 'fdfsfs',
+      'title': 'novo titulo',
+      'abbr': 'nt',
+      'priority': 2,
+      'orders': [],
+    });
+
+    await datasource.updateQueue({
+      'id': 'fdfsfs',
+      'title': 'novo titulo',
+      'abbr': 'nt',
+      'priority': 3,
+      'orders': [
+        {
+          'position': 1,
+          'id': '0001',
+          'status': 'waiting',
+        }
+      ],
+    });
+
+    final ref = firestore.collection('queue');
+    final queue = await ref.doc('fdfsfs').get();
+    expect((queue.data()?['orders'] as List).length, 1);
+    expect(queue.data()?['priority'], 3);
+  });
 }

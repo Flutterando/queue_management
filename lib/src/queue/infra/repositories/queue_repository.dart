@@ -30,4 +30,15 @@ class QueueRepository implements IQueueRepository {
   Future<void> removeQueue(String id) async {
     await datasource.removeQueue(id);
   }
+
+  @override
+  Future<void> removeAllOrders() async {
+    await datasource.removeAllOrders();
+  }
+
+  @override
+  Future<void> updateQueue(QueueEntity queue) async {
+    final map = JsonToQueue.toMap(queue);
+    await datasource.updateQueue(map);
+  }
 }

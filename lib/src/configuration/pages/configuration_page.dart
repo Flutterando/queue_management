@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_queue/src/configuration/blocs/configuration_bloc.dart';
 import 'package:flutter_queue/src/configuration/states/conf_state.dart';
-import 'package:flutter_queue/src/queue/domain/entities/queue_entity.dart';
 import 'package:provider/provider.dart';
 
 import '../events/conf_event.dart';
@@ -134,7 +133,9 @@ class _ConfigurationPageState extends State<ConfigurationPage> with CompleteStat
               const SizedBox(height: 10),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.black),
-                onPressed: () {},
+                onPressed: () {
+                  bloc.add(RemoveAllOrdersEvent());
+                },
                 child: const Text('Reiniciar filas'),
               )
             ],
